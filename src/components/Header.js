@@ -1,6 +1,8 @@
 import React from 'react';
 import { UilMapMarker } from '@iconscout/react-unicons'
 import { UilSearch } from '@iconscout/react-unicons';
+import { UilCelsius } from '@iconscout/react-unicons'
+import { UilFahrenheit } from '@iconscout/react-unicons'
 
 const Header = () => {
     return (
@@ -17,6 +19,16 @@ const Header = () => {
                     placeholder="Search new place"
                     className="w-full pl-10 p-2 border border-gray-300 bg-gray-50 text-gray-800 focus:outline-none capitalize rounded-3xl"
                 />
+            </div>
+
+            <div className="flex flex-row ml-2 p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl">
+                <button name="metric" >
+                    <UilCelsius size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
+                </button>
+                <p className="mx-2 text-gray-400">|</p>
+                <button name="imperial">
+                    <UilFahrenheit size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
+                </button>
             </div>
         </div >
     );
