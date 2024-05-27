@@ -13,8 +13,10 @@ function App() {
   getWeather();
 
   return (
-    <div className="h-screen">
-      <Header />
+    <div className="h-screen bg-blue-50">
+      <div className="p-4 rounded-3xl">
+        <Header />
+      </div>
       <div className="">
         <MainContent />
       </div>

@@ -2,9 +2,9 @@ import React from 'react';
 
 function MainContent() {
     return (
-        <div className="flex-1 bg-blue-50 p-4 flex flex-col">
+        <div className="flex-1 bg-blue-50 px-4 flex flex-col">
             <div className="flex flex-grow flex-col xl:flex-row space-y-4 xl:space-y-0 xl:space-x-4">
-                <div className="flex-2 bg-white bg-opacity-90 p-6 rounded-3xl">
+                <div className="flex-2 bg-white bg-opacity-90 p-4 rounded-3xl">
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-col justify-start">
                             <h2 className="text-gray-700">Berlin | DE</h2>
