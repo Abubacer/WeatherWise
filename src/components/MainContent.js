@@ -30,8 +30,59 @@ function MainContent() {
                         <p className="text-blue-800">It's time for a beach or hiking adventure.</p>
                     </div>
                 </div>
+
+                <div className="flex-1 text-lg text-white bg-blue-500 bg-opacity-75 p-10 rounded-3xl">
+                    <div className="space-y-1 divide-y divide-white divide-dashed">
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/raindrop.svg" alt="humidity icon" className="w-8" />
+                                <p>Humidity</p>
+                            </div>
+                            <p>14%</p>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/wind.svg" alt="Wind Speed" className="w-8" />
+                                <p>Wind Speed</p>
+                            </div>
+                            <p>14km/h</p>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/chance-rain.svg" alt="Chance of Rain" className="w-8" />
+                                <p>Chance of Rain</p>
+                            </div>
+                            <p>16%</p>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/sunrise.svg" alt="Sunrise" className="w-8" />
+                                <p>Sunrise</p>
+                            </div>
+                            <p>06:00 AM</p>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/sunset.svg" alt="Sunset" className="w-8" />
+                                <p>Sunset</p>
+                            </div>
+                            <p>18:00 PM</p>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <div className="flex items-center space-x-2">
+                                <img src="./weathericons/uv-index.svg" alt="UV Index" className="w-8" />
+                                <p>UV Index</p>
+                            </div>
+                            <p>5</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div >
+        </div>
     );
 }
 
