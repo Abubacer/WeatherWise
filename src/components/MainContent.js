@@ -21,6 +21,14 @@ function MainContent() {
                         <p className="text-gray-600">Feels Like: 28°</p>
                         <p className="text-gray-600">H: 32° | L: 24°</p>
                     </div>
+
+                    <hr className="my-6" />
+                    <div className="mt-8 bg-blue-50 p-4 rounded-3xl h-42">
+                        <h3 className="text-lg font-semibold text-blue-900">Tips and Recommendations</h3>
+                        <p className="text-blue-800">It's warm, wear something light and comfy.</p>
+                        <p className="text-blue-800">Don't forget to stay hydrated and wear sunscreen.</p>
+                        <p className="text-blue-800">It's time for a beach or hiking adventure.</p>
+                    </div>
                 </div>
             </div>
         </div >
