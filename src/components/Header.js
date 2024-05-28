@@ -35,7 +35,10 @@ const Header = () => {
                     try {
                         const response = await fetch(`https://api.locationiq.com/v1/reverse.php?key=pk.0f6191d99d66e14e04b55794832375bf&lat=${latitude}&lon=${longitude}&format=json`);
                         const data = await response.json();
-                        setLocation(data.display_name);
+                        const city = data.address.city;
+                        const country = data.address.country;
+                        const formattedLocation = `${city}, ${country}`;
+                        setLocation(formattedLocation);
                     } catch (error) {
                         console.error('Error fetching reverse geocoding:', error);
                     }
