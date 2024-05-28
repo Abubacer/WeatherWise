@@ -27,12 +27,34 @@ const Header = () => {
         console.log('Selected location:', suggestion);
     };
 
+    const handleGeolocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                async (position) => {
+                    const { latitude, longitude } = position.coords;
+                    try {
+                        const response = await fetch(`https://api.locationiq.com/v1/reverse.php?key=pk.0f6191d99d66e14e04b55794832375bf&lat=${latitude}&lon=${longitude}&format=json`);
+                        const data = await response.json();
+                        setLocation(data.display_name);
+                    } catch (error) {
+                        console.error('Error fetching reverse geocoding:', error);
+                    }
+                },
+                (error) => {
+                    console.error("Error getting geolocation:", error.message);
+                }
+            );
+        } else {
+            alert("Geolocation is not supported by your browser");
+        }
+    };
+
     return (
         <div className="bg-white bg-opacity-90 p-4 flex items-center rounded-3xl">
             <img src={logo} alt="logo" className="w-10" />
             <h1 className="text-lg text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out ml-2 mr-4">WeatherWise</h1>
 
-            <button className="p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out">
+            <button className="p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out" onClick={handleGeolocation}>
                 <UilMapMarker size={22} className="text-gray-400 cursor-pointer hover:text-white" />
             </button>
 
