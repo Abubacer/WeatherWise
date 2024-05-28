@@ -3,9 +3,9 @@ import { UilMapMarker, UilSearch, UilCelsius, UilFahrenheit } from '@iconscout/r
 import logo from '../img/icon.png'
 
 const Header = () => {
-
     const [location, setLocation] = useState('');
     const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(true);
 
     const handleLocationChange = async (event) => {
         const value = event.target.value;
@@ -16,14 +16,18 @@ const Header = () => {
                 const response = await fetch(`https://api.locationiq.com/v1/autocomplete.php?key=pk.0f6191d99d66e14e04b55794832375bf&q=${value}&limit=3&format=json`);
                 const data = await response.json();
                 setSuggestions(data);
+                setShowSuggestions(true);
             } catch (error) {
                 console.error('Error fetching suggestions:', error);
             }
+        } else {
+            setShowSuggestions(false);
         }
     };
 
     const handleSelectLocation = (suggestion) => {
         setLocation(suggestion.display_name);
+        setShowSuggestions(false);
         console.log('Selected location:', suggestion);
     };
 
@@ -39,6 +43,7 @@ const Header = () => {
                         const country = data.address.country;
                         const formattedLocation = `${city}, ${country}`;
                         setLocation(formattedLocation);
+                        setShowSuggestions(false); // Hide suggestion list when location is obtained
                     } catch (error) {
                         console.error('Error fetching reverse geocoding:', error);
                     }
@@ -70,10 +75,10 @@ const Header = () => {
                     value={location}
                     onChange={handleLocationChange}
                 />
-                {suggestions.length > 0 && (
-                    <ul className="absolute z-10 mt-1 bg-white border border-gray-300 rounded-3xl shadow-lg">
+                {showSuggestions && suggestions.length > 0 && (
+                    <ul className="absolute z-10 mt-1 bg-white bg-opacity-85 border border-gray-300 rounded-xl shadow-lg">
                         {suggestions.map((suggestion, index) => (
-                            <li key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-100" onClick={() => handleSelectLocation(suggestion)}>
+                            <li key={index} className="px-4 py-2 border-b cursor-pointer font-medium hover:bg-blue-400 hover:text-white" onClick={() => handleSelectLocation(suggestion)}>
                                 {suggestion.display_name}
                             </li>
                         ))}
