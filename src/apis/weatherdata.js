@@ -37,11 +37,13 @@ const formatforcastedWeather = (data) => {
 
     daily = daily.slice(1, 6).map((d) => {
         return {
-            title: formatToLocalDatetime(d.dt, timezone, "hh:mm a"),
+            title: formatToLocalDatetime(d.dt, timezone, "ccc"),
             temp: d.temp.day,
             icon: d.weather[0].icon
-        }
-    })
+        };
+    });
+
+    return { timezone, hourly, daily };
 }
 
 const fetchFormatedWeatherData = async (searchParms) => {
@@ -51,7 +53,7 @@ const fetchFormatedWeatherData = async (searchParms) => {
         lon, lat, exclude: 'current.minutely.alerts', units: searchParms.units
     }).then(formatforcastedWeather)
 
-    return currentWeather;
+    return { ...currentWeather, ...forcastedWeather };
 };
 
 const formatToLocalDatetime = ({ secs, zone, format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a" }) => {
