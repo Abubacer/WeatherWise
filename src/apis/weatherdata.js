@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 const ApiKey = process.env.REACT_APP_WEATHER_API_KEY;
 const BaseUrl = "https://api.openweathermap.org/data/2.5/";
 
@@ -35,6 +37,7 @@ const formatforcastedWeather = (data) => {
 
     daily = daily.slice(1, 6).map((d) => {
         return {
+            title: formatToLocalDatetime(d.dt, timezone, "hh:mm a"),
             temp: d.temp.day,
             icon: d.weather[0].icon
         }
@@ -49,6 +52,10 @@ const fetchFormatedWeatherData = async (searchParms) => {
     }).then(formatforcastedWeather)
 
     return currentWeather;
-}
+};
+
+const formatToLocalDatetime = ({ secs, zone, format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a" }) => {
+    return DateTime.fromSeconds(secs).setZone(zone).toFormat(format);
+};
 
 export default fetchFormatedWeatherData;
