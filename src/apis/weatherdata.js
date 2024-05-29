@@ -24,6 +24,15 @@ const formatCurrentWeather = (data) => {
     return { lat, long, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, icon }
 }
 
+const formatforcastedWeather = (data) => {
+    let { timezone, hourly } = data
+    hourly = hourly.slice(1, 6).map(d => {
+        return {
+            temp: d.temp.day,
+            icon: d.weather[0].icon
+        }
+    })
+}
 
 const fetchFormatedWeatherData = async (searchParms) => {
     const currentWeather = await fetchWeatherData('weather', searchParms).then(formatCurrentWeather)
