@@ -17,7 +17,7 @@ const Header = () => {
                 const data = await response.json();
 
                 const formattedSuggestions = data.map((item) => {
-                    const city = item.address.name || item.address.city;
+                    const city = item.address.name || item.address.city || item.address.town || item.address.village || item.address.hamlet;
                     const country = item.address.country;
                     return { display_name: `${city}, ${country}`, raw: item };
                 });
@@ -86,7 +86,7 @@ const Header = () => {
                     {showSuggestions && suggestions.length > 0 && (
                         <ul className="absolute z-50 mt-1 w-full backdrop-blur-md bg-gray-50/80 border border-gray-300 rounded-xl shadow-md divide-y">
                             {suggestions.map((suggestion, index) => (
-                                <li key={index} className="px-4 py-2 cursor-pointer font-medium hover:bg-blue-400 hover:text-white rounded-xl" onClick={() => handleSelectLocation(suggestion)}>
+                                <li key={index} className="px-4 py-2 cursor-pointer font-medium hover:bg-blue-400 hover:text-white rounded-xl" onClick={() => handleSelectLocation(suggestion.raw)}>
                                     {suggestion.display_name}
                                 </li>
                             ))}
