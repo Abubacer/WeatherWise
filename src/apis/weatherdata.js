@@ -1,4 +1,5 @@
 import { DateTime } from "luxon";
+import iconMapping from './iconMapping';
 
 const ApiKey = process.env.REACT_APP_WEATHER_API_KEY;
 const BaseUrl = "https://api.openweathermap.org/data/2.5/";
@@ -23,15 +24,18 @@ const formatCurrentWeather = (data) => {
 
     const { main: details, icon } = weather[0]
 
-    return { lat, long, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, icon }
+    const customIcon = iconMapping[icon] || '/src/weathericons/50d.svg';
+
+    return { lat, long, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, icon: customIcon }
 }
 
 const formatforcastedWeather = (data) => {
     let { timezone, hourly, daily } = data
     hourly = hourly.slice(1, 6).map((h) => {
         return {
+            title: formatToLocalDatetime(h.dt, timezone, "hh:mm a"),
             temp: h.temp,
-            icon: h.weather[0].icon
+            icon: iconMapping[h.weather[0].icon] || '/src/weathericons/50d.svg'
         }
     })
 
@@ -39,7 +43,7 @@ const formatforcastedWeather = (data) => {
         return {
             title: formatToLocalDatetime(d.dt, timezone, "ccc"),
             temp: d.temp.day,
-            icon: d.weather[0].icon
+            icon: iconMapping[d.weather[0].icon] || '/src/weathericons/50d.svg'
         };
     });
 
