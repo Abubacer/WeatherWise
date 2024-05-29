@@ -2,12 +2,12 @@ import './App.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import WelcomeMessage from './components/WelcomeMessage'
-import fetchWeatherData from './apis/weatherdata';
+import fetchFormatedWeatherData from './apis/weatherdata';
 
 function App() {
 
   const getWeather = async () => {
-    const weatherData = await fetchWeatherData("weather", { q: "tokyo" });
+    const weatherData = await fetchFormatedWeatherData({ q: "tokyo" });
     console.log(weatherData);
   };
 
@@ -20,7 +20,7 @@ function App() {
           <Header />
         </div>
         <div className="relative z-20">
-          <MainContent />
+          <WelcomeMessage />
         </div>
       </div>
     </div>
