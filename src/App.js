@@ -14,12 +14,14 @@ function App() {
   getWeather();
 
   return (
-    <div className="h-screen bg-auto bg-no-repeat bg-custom-image">
-      <div className="bg-sky-800 bg-opacity-20 h-screen">
-        <div className="p-4 rounded-3xl">
+    <div className="h-screen bg-gradient-to-br from-blue-200 to-orange-100">
+      <div className="backdrop-blur-sm bg-sky-800/10 h-screen">
+        <div className="p-4 rounded-3xl relative z-30">
           <Header />
         </div>
-        <WelcomeMessage />
+        <div className="relative z-20">
+          <MainContent />
+        </div>
       </div>
     </div>
   );
