@@ -25,8 +25,15 @@ const formatCurrentWeather = (data) => {
 }
 
 const formatforcastedWeather = (data) => {
-    let { timezone, hourly } = data
-    hourly = hourly.slice(1, 6).map(d => {
+    let { timezone, hourly, daily } = data
+    hourly = hourly.slice(1, 6).map((h) => {
+        return {
+            temp: h.temp,
+            icon: h.weather[0].icon
+        }
+    })
+
+    daily = daily.slice(1, 6).map((d) => {
         return {
             temp: d.temp.day,
             icon: d.weather[0].icon
