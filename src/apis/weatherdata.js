@@ -24,8 +24,13 @@ const formatCurrentWeather = (data) => {
     return { lat, long, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, icon }
 }
 
+
 const fetchFormatedWeatherData = async (searchParms) => {
     const currentWeather = await fetchWeatherData('weather', searchParms).then(formatCurrentWeather)
+    const { lat, lon } = currentWeather
+    const forcastedWeather = await fetchWeatherData('onecall', {
+        lon, lat, exclude: 'current.minutely.alerts', units: searchParms.units
+    }).then(formatforcastedWeather)
 
     return currentWeather;
 }
