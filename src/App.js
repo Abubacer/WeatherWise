@@ -1,17 +1,26 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
-import WelcomeMessage from './components/WelcomeMessage'
-//import fetchFormatedWeatherData from './apis/weatherdata';
+//import WelcomeMessage from './components/WelcomeMessage'
+import fetchFormattedWeatherData from './apis/weatherdata';
 
 function App() {
 
-  /*const getWeather = async () => {
-    const weatherData = await fetchFormatedWeatherData({ q: "tokyo" });
-    console.log(weatherData);
-  };
+  const [query, setQuery] = useState({ q: "tokyo" });
+  const [units, setUnits] = useState('metric');
+  const [weather, setWeather] = useState(null);
 
-  getWeather();*/
+  useEffect(() => {
+    const getWeather = async () => {
+      const searchParams = { q: 'ibiza', units: 'metric' };
+      const data = await fetchFormattedWeatherData(searchParams);
+      console.log('Weather Data:', data);
+      setWeather(data);
+    }
+
+    getWeather();
+  }, []);
 
   return (
     <div className="h-screen bg-gradient-to-br from-blue-200 to-orange-100">
@@ -19,9 +28,11 @@ function App() {
         <div className="p-4 relative z-30">
           <Header />
         </div>
-        <div className="relative z-20">
-          <WelcomeMessage />
-        </div>
+        {weather && (
+          < div className="relative z-20">
+            <MainContent weather={weather} />
+          </div>
+        )}
       </div>
     </div>
   );
