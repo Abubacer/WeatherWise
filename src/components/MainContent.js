@@ -33,7 +33,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
 
                     <div className="flex flex-col items-center justify-center mt-10">
                         <p className="text-3xl text-gray-600">{`${details}`}</p>
-                        <img src={icon} alt="" className="size-48" />
+                        <img src={icon} alt="" className="size-48 drop-shadow-sm" />
                         <p className="text-4xl text-gray-600">{Math.round(`${temp}`)}°</p>
                         <p className="text-gray-600">Feels like: {Math.round(`${feels_like}`)}°</p>
                         <p className="text-gray-600 mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
@@ -68,7 +68,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                                 <img src="./weathericons/wind.svg" alt="Wind Speed" className="w-12" />
                                 <p>Wind Speed</p>
                             </div>
-                            <p>{`${Math.round(speed)} m/s`}</p>
+                            <p>{`${Math.round(speed)}m/s`}</p>
                         </div>
 
                         <div className="flex justify-between items-center">
@@ -76,7 +76,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                                 <img src="./weathericons/chance-rain.svg" alt="Chance of Rain" className="w-12" />
                                 <p>Chance of Rain</p>
                             </div>
-                            <p>2%</p>
+                            <p>{`${Math.round(forecastData[0].chanceOfPrecipitation * 100)}%`}</p>
                         </div>
 
                         <div className="flex justify-between items-center">
@@ -104,7 +104,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                     </div>
 
                     <div className="flex items-center justify-start mt-8">
-                        <p className="text-xl font-medium leading-6 text-gray-900 dark:text-white">
+                        <p className="text-xl font-medium leading-6 text-white">
                             Hourly Forcast
                         </p>
                     </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UilMapMarker, UilSearch, UilCelsius, UilFahrenheit } from '@iconscout/react-unicons'
 import logo from '../img/icon.png'
 
-const Header = () => {
+const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
     const [location, setLocation] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(true);
@@ -35,6 +35,7 @@ const Header = () => {
     const handleSelectLocation = (suggestion) => {
         setLocation(suggestion.display_name);
         setShowSuggestions(false);
+        onLocationSearch(suggestion.display_name);
         console.log('Selected location:', suggestion);
     };
 
@@ -51,6 +52,7 @@ const Header = () => {
                         const formattedLocation = `${city}, ${country}`;
                         setLocation(formattedLocation);
                         setShowSuggestions(false); // Hide suggestion list when location is obtained
+                        onGeolocation(formattedLocation);
                     } catch (error) {
                         console.error('Error fetching reverse geocoding:', error);
                     }
@@ -63,6 +65,10 @@ const Header = () => {
             alert("Geolocation is not supported by your browser");
         }
     };
+
+    const handleUnitSwitch = (unit) => {
+        onUnitChange(unit);
+    }
 
     return (
         <div className="p-3 flex flex-row justify-between rounded-3xl backdrop-blur-sm bg-white/65">
@@ -95,11 +101,11 @@ const Header = () => {
                 </div>
             </div>
             <div className="flex flex-row ml-2 p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl">
-                <button name="metric">
+                <button name="metric" onClick={() => handleUnitSwitch('metric')}>
                     <UilCelsius size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
                 </button>
                 <p className="mx-2 text-gray-400">|</p>
-                <button name="imperial">
+                <button name="imperial" onClick={() => handleUnitSwitch('imperial')}>
                     <UilFahrenheit size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
                 </button>
             </div>
