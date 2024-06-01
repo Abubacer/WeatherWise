@@ -48,13 +48,17 @@ const formatForecastWeather = (data) => {
 };
 
 const fetchFormattedWeatherData = async (searchParams) => {
-    const currentWeather = await fetchWeatherData('weather', searchParams).then(formatCurrentWeather);
-    const forecastData = await fetchWeatherData('forecast', searchParams).then(formatForecastWeather);
+    try {
+        const currentWeather = await fetchWeatherData('weather', searchParams).then(formatCurrentWeather);
+        const forecastData = await fetchWeatherData('forecast', searchParams).then(formatForecastWeather);
 
-    return { currentWeather, forecastData };
+        return { currentWeather, forecastData };
+    } catch (error) {
+        console.error('Error fetching formatted weather data:', error.message);
+        return null;
+    }
 };
 
 
 export default fetchFormattedWeatherData;
-
 

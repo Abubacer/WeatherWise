@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { lqApiKey, LqBaseUrl } from '../apis/LocationiqApi';
 import { UilMapMarker, UilSearch, UilCelsius, UilFahrenheit } from '@iconscout/react-unicons'
 import logo from '../img/icon.png'
 
@@ -13,7 +14,7 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
 
         if (value.length >= 2) {
             try {
-                const response = await fetch(`https://api.locationiq.com/v1/autocomplete.php?key=pk.0f6191d99d66e14e04b55794832375bf&q=${value}&limit=3&format=json`);
+                const response = await fetch(`${LqBaseUrl}/autocomplete.php?key=${lqApiKey}&q=${value}&limit=3&format=json`);
                 const data = await response.json();
 
                 const formattedSuggestions = data.map((item) => {
@@ -45,14 +46,15 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
                 async (position) => {
                     const { latitude, longitude } = position.coords;
                     try {
-                        const response = await fetch(`https://api.locationiq.com/v1/reverse.php?key=pk.0f6191d99d66e14e04b55794832375bf&lat=${latitude}&lon=${longitude}&format=json`);
+                        const response = await fetch(`${LqBaseUrl}/reverse.php?key=${lqApiKey}&lat=${latitude}&lon=${longitude}&format=json`);
                         const data = await response.json();
+                        console.log('Reverse geocoding data:', data);
                         const city = data.address.city;
                         const country = data.address.country;
                         const formattedLocation = `${city}, ${country}`;
                         setLocation(formattedLocation);
                         setShowSuggestions(false); // Hide suggestion list when location is obtained
-                        onGeolocation(formattedLocation);
+                        onGeolocation({ lat: latitude, lon: longitude });
                     } catch (error) {
                         console.error('Error fetching reverse geocoding:', error);
                     }

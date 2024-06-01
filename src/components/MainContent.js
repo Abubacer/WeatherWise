@@ -19,7 +19,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
     const { clothingRecommendation, activityRecommendations } = getRecommendations(currentWeather);
 
     return (
-        <div className="flex-1 bg-transparent px-4 sm:pb-4 flex flex-col">
+        <div className="flex-1 bg-transparent flex-col">
             <div className="flex flex-col xl:flex-row space-y-4 xl:space-y-0 xl:space-x-4">
                 <div className="xl:w-2/5 md:w-full backdrop-blur-sm bg-white/65 p-6 rounded-3xl">
                     <div className="flex flex-row justify-between">
@@ -39,12 +39,12 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                         <p className="text-gray-600 mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
                     </div>
 
-                    <hr className="my-3 border-blue-400 border-dashed" />
-                    <div className="mt-2 bg-transparent p-2 rounded-3xl text-center mb-2">
-                        <h3 className="text-md font-semibold text-blue-500">What to Wear</h3>
+                    <hr className="my-4 border-blue-400 border-dashed" />
+                    <div className="p-4 bg-transparent p-2 rounded-3xl text-center text-sm">
+                        <h3 className="font-semibold text-blue-500">What to Wear</h3>
                         <p className="text-gray-600 font-medium">{clothingRecommendation}</p>
                         <hr className="my-3" />
-                        <h3 className="text-md font-semibold text-blue-500">Where to Play</h3>
+                        <h3 className="font-semibold text-blue-500">Where to Play</h3>
                         <ul className="text-gray-600 font-medium">
                             {activityRecommendations.map((activity, index) => (
                                 <li key={index} className="inline-block mx-3">{activity}</li>
