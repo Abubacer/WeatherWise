@@ -54,6 +54,7 @@ The deprecation of the One Call 2.5 API and the subsequent shift to a paid servi
   - Node JS:  Used for development as a cross-platform JavaScript runtime environment.
   - Luxon JS:  Used as a modern, and powerful wrapper for JavaScript dates and times
   - Git/Github : Used for version control.
+  - Toastify: Used provide feedback to the user regarding the success or failure of fetching weather data and geolocation data.
   - LocationIQ:  is a powerful geocoding and location data service that enables us to retrieve accurate location information based on user input. The integration will allow fetching precise weather data for the user's specified location and streamline location input with autocomplete functionality.
   - OpenWeatherMap: is a reliable and scalable weather API  that allows us to fetch current and future weather data.  The integration will  keep users informed about real-time weather.
   - React Unicons and custom weather animated icons: React Unicons is a collection of icons designed by IconScout.
