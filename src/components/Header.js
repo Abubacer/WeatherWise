@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { lqApiKey, LqBaseUrl } from '../apis/LocationiqApi';
 import { UilMapMarker, UilSearch, UilCelsius, UilFahrenheit } from '@iconscout/react-unicons'
 import logo from '../img/icon.png'
@@ -7,6 +9,7 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
     const [location, setLocation] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(true);
+    const [loadingToastId, setLoadingToastId] = useState(null);
 
     const handleLocationChange = async (event) => {
         const value = event.target.value;
@@ -14,17 +17,22 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
 
         if (value.length >= 2) {
             try {
-                const response = await fetch(`${LqBaseUrl}/autocomplete.php?key=${lqApiKey}&q=${value}&limit=3&format=json`);
+                const response = await fetch(`${LqBaseUrl}/autocomplete.php?key=${lqApiKey}&q=${value}&limit=4&format=json`);
                 const data = await response.json();
+                // console.log("resData", data);
 
-                const formattedSuggestions = data.map((item) => {
-                    const city = item.address.name || item.address.city || item.address.town || item.address.village || item.address.hamlet;
-                    const country = item.address.country;
-                    return { display_name: `${city}, ${country}`, raw: item };
-                });
+                if (Array.isArray(data)) { // Check if data is an array
+                    const formattedSuggestions = data.map((item) => {
+                        const city = item.address.name || item.address.city || item.address.town || item.address.village;
+                        const country = item.address.country;
+                        return { display_name: `${city}, ${country}`, raw: item };
+                    });
 
-                setSuggestions(formattedSuggestions);
-                setShowSuggestions(true);
+                    setSuggestions(formattedSuggestions);
+                    setShowSuggestions(true);
+                } else {
+                    console.error('Data is not an array:', data);
+                }
             } catch (error) {
                 console.error('Error fetching suggestions:', error);
             }
@@ -37,11 +45,14 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
         setLocation(suggestion.display_name);
         setShowSuggestions(false);
         onLocationSearch(suggestion.display_name);
-        console.log('Selected location:', suggestion);
+        // console.log('Selected location:', suggestion);
     };
 
     const handleGeolocation = () => {
         if (navigator.geolocation) {
+            setLoadingToastId(toast.info("Loading...", {
+                autoClose: true,
+            }));
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
                     const { latitude, longitude } = position.coords;
@@ -57,6 +68,8 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
                         onGeolocation({ lat: latitude, lon: longitude });
                     } catch (error) {
                         console.error('Error fetching reverse geocoding:', error);
+                    } finally {
+                        toast.dismiss(loadingToastId);
                     }
                 },
                 (error) => {

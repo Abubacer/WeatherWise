@@ -11,7 +11,7 @@ const fetchWeatherData = (infoType, searchParms) => {
 };
 
 const formatCurrentWeather = (data) => {
-    console.log('Data from API:', data);
+    // console.log('Data from API:', data);
     const {
         coord: { lon, lat },
         main: { temp, feels_like, temp_min, temp_max, humidity },
@@ -23,7 +23,7 @@ const formatCurrentWeather = (data) => {
         wind: { speed }
     } = data
 
-    console.log('Data from const:', data);
+    // console.log('Data from const:', data);
 
     const { main: details, icon } = weather[0]
 

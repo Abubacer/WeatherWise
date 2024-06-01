@@ -3,10 +3,10 @@ import getRecommendations from '../getRecommendations';
 import { DateTime } from 'luxon';
 
 
-function MainContent({ weather: { currentWeather, forecastData } }) {
+function MainContent({ weather: { currentWeather, forecastData }, units }) {
     //console.log('Weather in MainContent:', weather);
     const { dt, timezone, name, country, details, feels_like, humidity, icon, speed, sunrise, sunset, temp, temp_max, temp_min } = currentWeather;
-
+    //console.log("MainContentUnits:", units);
     function formatToLocalDatetime({ secs, offset, format }) {
         const offsetHours = offset / 3600;
         return DateTime.fromSeconds(secs).setZone(`UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`).toFormat(format);
@@ -16,7 +16,14 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
     const formattedSunrise = formatToLocalDatetime({ secs: sunrise, offset: timezone, format: 'hh:mm a' });
     const formattedSunset = formatToLocalDatetime({ secs: sunset, offset: timezone, format: 'hh:mm a' });
 
-    const { clothingRecommendation, activityRecommendations } = getRecommendations(currentWeather);
+    const { clothingRecommendation, activityRecommendations } = getRecommendations(currentWeather, units);
+
+    let windSpeedLabel = '';
+    if (units === 'metric') {
+        windSpeedLabel = `m/s`;
+    } else if (units === 'imperial') {
+        windSpeedLabel = `mph`;
+    }
 
     return (
         <div className="flex-1 bg-transparent flex-col">
@@ -39,7 +46,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                         <p className="text-gray-600 mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
                     </div>
 
-                    <hr className="my-4 border-blue-400 border-dashed" />
+                    <hr className="my-2 border-blue-400 border-dashed" />
                     <div className="p-4 bg-transparent p-2 rounded-3xl text-center text-sm">
                         <h3 className="font-semibold text-blue-500">What to Wear</h3>
                         <p className="text-gray-600 font-medium">{clothingRecommendation}</p>
@@ -68,7 +75,7 @@ function MainContent({ weather: { currentWeather, forecastData } }) {
                                 <img src="./weathericons/wind.svg" alt="Wind Speed" className="w-12" />
                                 <p>Wind Speed</p>
                             </div>
-                            <p>{`${Math.round(speed)}m/s`}</p>
+                            <p>{`${Math.round(speed)} ${windSpeedLabel}`}</p>
                         </div>
 
                         <div className="flex justify-between items-center">

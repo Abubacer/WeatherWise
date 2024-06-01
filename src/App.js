@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 //import './App.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import WelcomeMessage from './components/WelcomeMessage'
@@ -23,11 +25,12 @@ function App() {
         }
         if (data) {
           setWeather(data);
+          toast("🎉 Hi! We've just snagged the latest weather forecast for you!");
         } else {
           console.error('Failed to fetch weather data');
         }
       } catch (error) {
-        console.error('Error fetching weather data:', error.message);
+        toast.error("Sorry, failed to fetch weather data.");
       }
     };
 
@@ -48,6 +51,7 @@ function App() {
   const handleGeolocation = (coords) => {
     setQuery({ lat: coords.lat, lon: coords.lon });
     setShowWelcome(false);
+    toast.info("Geolocation data fetched successfully!");
   }
 
   return (
@@ -63,10 +67,13 @@ function App() {
       ) : (
         weather && (
           <div className="relative z-20 px-4 sm:pb-4 md:pb-4">
-            <MainContent weather={weather} />
+            <MainContent weather={weather} units={units} />
           </div>
         )
       )}
+      <div className="relative opacity-85 z-50 ">
+        <ToastContainer autoClose={3000} position="top-right" />
+      </div>
     </div>
   );
 }
