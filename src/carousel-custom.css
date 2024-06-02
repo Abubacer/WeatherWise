@@ -1,0 +1,23 @@
+.carousel .control-dots {
+    position: relative;
+    margin-botton: 20px;
+}
+
+.carousel .slide {
+    /*padding-bottom: 40px;
+    /* Adjust this to create space for indicators */
+}
+
+.carousel .control-dots .dot {
+    box-shadow: none;
+}
+
+/* active indicator dot */
+.carousel .control-dots .dot.selected {
+    background-color: rgb(43, 101, 249);
+}
+
+/* inactive indicator dots */
+.carousel .control-dots .dot {
+    background-color: #999999;
+}

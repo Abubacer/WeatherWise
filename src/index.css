@@ -4,8 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
     html {
+        @apply bg-gradient-to-br from-blue-400 to-orange-200 bg-cover;
         font-family: 'Inter', sans-serif;
     }
 }

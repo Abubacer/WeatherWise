@@ -1,6 +1,6 @@
-function getRecommendations(weather, units) {
-    const { temp, details, pop } = weather;
-    // console.log('Temperature:', temp, 'Details:', details, 'Speed:', speed, 'Chance of Rain:', pop);
+function getRecommendations(weather, forecastData, units) {
+    const { temp, details } = weather;
+    // console.log('Temperature:', temp, 'Details:', details, 'Chance of Rain:', forecastData);
     let clothingRecommendation = '';
     let activityRecommendations = [];
 
@@ -32,7 +32,7 @@ function getRecommendations(weather, units) {
         }
     }
     // Clothing recommendations based on weather details and chance of rain
-    if (details.toLowerCase().includes('rain') || pop > 0.5 || details.toLowerCase().includes('drizzle')) {
+    if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle') || forecastData[0].chanceOfPrecipitation > 0.5) {
         clothingRecommendation += ' And there is a high chance of rain, so consider wearing a waterproof jacket and carrying an umbrella or raincoat.';
     } else if (details.toLowerCase().includes('snow')) {
         clothingRecommendation += ' And snow is expected. Wear warm layers, a heavy coat, and insulated boots.';

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { Tooltip } from 'react-tooltip';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { lqApiKey, LqBaseUrl } from '../apis/LocationiqApi';
-import { UilMapMarker, UilSearch, UilCelsius, UilFahrenheit } from '@iconscout/react-unicons'
+import { UilMapMarker, UilSearch } from '@iconscout/react-unicons'
 import logo from '../img/icon.png'
 
-const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
+const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox }) => {
     const [location, setLocation] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(true);
     const [loadingToastId, setLoadingToastId] = useState(null);
+    const [unit, setUnit] = useState('metric');
 
     const handleLocationChange = async (event) => {
         const value = event.target.value;
@@ -81,19 +83,55 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
         }
     };
 
-    const handleUnitSwitch = (unit) => {
-        onUnitChange(unit);
-    }
+    const handleUnitSwitch = () => {
+        const newUnit = unit === 'metric' ? 'imperial' : 'metric';
+        setUnit(newUnit);
+        onUnitChange(newUnit);
+    };
+
+
+    const handleWeatherWiseClick = () => {
+        onToggleInfoBox();
+    };
+
 
     return (
-        <div className="p-3 flex flex-row justify-between rounded-3xl backdrop-blur-sm bg-white/65">
-            <div className="flex flex-row items-center md:w-1/2 sm:w-full relative">
-                <img src={logo} alt="logo" className="w-10 mr-2 opacity-75" />
-                <h1 className="text-lg md:visible sm:collapse text-slate-400 cursor-pointer hover:text-blue-400 font-bold transition ease-out">WeatherWise</h1>
+        <div className="p-3 flex-col rounded-3xl backdrop-blur-sm bg-white/65">
+            <div className="flex flex-row items-center w-full xl:w-1/2 relative">
+                <img src={logo} alt="logo" className="w-10 mr-2 opacity-85" />
+                <h1
+                    className="text-lg hidden lg:block text-blue-700 cursor-pointer hover:text-blue-900 font-medium transition ease-out shadow-sm"
+                    onClick={handleWeatherWiseClick}
+                    data-tooltip-id="LogoBtnTooltip"
+                >
+                    WeatherWise
+                </h1>
+                <Tooltip id="LogoBtnTooltip" place="top" effect="solid">
+                    About WeatherWise
+                </Tooltip>
 
-                <button className="p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl mr-2 ml-4 hover:border-blue-400 hover:bg-blue-400 transition ease-out bg-opacity-95" onClick={handleGeolocation}>
-                    <UilMapMarker size={22} className="text-gray-400 cursor-pointer hover:text-white" />
+                <div className="flex flex-row border border-gray-300 bg-gray-50 text-gray-800 rounded-full ml-4 mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out bg-opacity-95">
+                    <div className="relative">
+                        <button
+                            className="size-10 flex items-center text-xl font-bold rounded-full justify-center text-gray-400 cursor-pointer hover:bg-blue-400 hover:text-white transition ease-out"
+                            data-tooltip-id="TempBtnTooltip"
+                            onClick={handleUnitSwitch}
+                        >
+                            {unit === 'metric' ? 'C' : 'F'}
+
+                        </button>
+                        <Tooltip id="TempBtnTooltip" place="top" effect="solid">
+                            Switch temperature units
+                        </Tooltip>
+                    </div>
+                </div>
+
+                <button className="p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out bg-opacity-95" data-tooltip-id="GeoBtnTooltip" onClick={handleGeolocation}>
+                    <UilMapMarker size={24} className="text-gray-400 cursor-pointer hover:text-white" />
                 </button>
+                <Tooltip id="GeoBtnTooltip" place="top" effect="solid">
+                    Get current location
+                </Tooltip>
 
                 <div className="relative w-full bg-opacity-95">
                     <UilSearch size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition ease-out hover:scale-125" />
@@ -114,15 +152,6 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation }) => {
                         </ul>
                     )}
                 </div>
-            </div>
-            <div className="flex flex-row ml-2 p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl">
-                <button name="metric" onClick={() => handleUnitSwitch('metric')}>
-                    <UilCelsius size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
-                </button>
-                <p className="mx-2 text-gray-400">|</p>
-                <button name="imperial" onClick={() => handleUnitSwitch('imperial')}>
-                    <UilFahrenheit size={20} className="text-gray-400 cursor-pointer hover:text-blue-400 transition ease-out" />
-                </button>
             </div>
         </div>
     );

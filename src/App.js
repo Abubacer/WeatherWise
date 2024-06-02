@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-//import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import WelcomeMessage from './components/WelcomeMessage'
 import fetchFormattedWeatherData from './apis/weatherdata';
+import InfoBox from './components/InfoBox';
 
 function App() {
 
@@ -13,6 +13,7 @@ function App() {
   const [units, setUnits] = useState('metric');
   const [weather, setWeather] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showInfoBox, setShowInfoBox] = useState(false)
 
   useEffect(() => {
     const getWeather = async () => {
@@ -54,11 +55,17 @@ function App() {
     toast.info("Geolocation data fetched successfully!");
   }
 
-  return (
-    <div className="h-screen bg-cover bg-gradient-to-br from-blue-400 to-orange-200">
+  const handleToggleInfoBox = () => {
+    setShowInfoBox(!showInfoBox);
+  }
 
-      <div className="p-4 relative z-30">
-        <Header onLocationSearch={handleLocationSearch} onUnitChange={handleUnitChange} onGeolocation={handleGeolocation} />
+  return (
+    <main className="flex flex-col p-4">
+      <div className="relative z-30 flex flex-col justify-between">
+        <Header onLocationSearch={handleLocationSearch} onUnitChange={handleUnitChange} onGeolocation={handleGeolocation} onToggleInfoBox={handleToggleInfoBox} />
+      </div>
+      <div>
+        {showInfoBox && <InfoBox />}
       </div>
       {showWelcome ? (
         <div className="flex flex-col items-center justify-center bg-transparent">
@@ -66,15 +73,15 @@ function App() {
         </div>
       ) : (
         weather && (
-          <div className="relative z-20 px-4 sm:pb-4 md:pb-4">
+          <div className="relative z-20 mt-4">
             <MainContent weather={weather} units={units} />
           </div>
         )
       )}
-      <div className="relative opacity-85 z-50 ">
+      <div className="relative opacity-95 z-50 ">
         <ToastContainer autoClose={3000} position="top-right" />
       </div>
-    </div>
+    </main>
   );
 }
 
