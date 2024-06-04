@@ -96,11 +96,11 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
 
 
     return (
-        <div className="p-3 flex-col rounded-3xl backdrop-blur-sm bg-white/65">
+        <div className="p-3 flex-col rounded-3xl backdrop-blur-sm bg-background/65">
             <div className="flex flex-row items-center w-full xl:w-1/2 relative">
                 <img src={logo} alt="logo" className="w-10 mr-2 opacity-85" />
                 <h1
-                    className="text-lg hidden lg:block text-blue-700 cursor-pointer hover:text-blue-900 font-medium transition ease-out shadow-sm"
+                    className="text-lg hidden lg:block text-gray-400 shadow-sm cursor-pointer hover:text-primary font-medium transition ease-out shadow-sm"
                     onClick={handleWeatherWiseClick}
                     data-tooltip-id="LogoBtnTooltip"
                 >
@@ -110,10 +110,10 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
                     About WeatherWise
                 </Tooltip>
 
-                <div className="flex flex-row border border-gray-300 bg-gray-50 text-gray-800 rounded-full ml-4 mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out bg-opacity-95">
+                <div className="flex flex-row border border-gray-300 bg-background rounded-full ml-4 hover:border-primary hover:bg-primary transition ease-out">
                     <div className="relative">
                         <button
-                            className="size-10 flex items-center text-xl font-bold rounded-full justify-center text-gray-400 cursor-pointer hover:bg-blue-400 hover:text-white transition ease-out"
+                            className="size-10 flex items-center text-xl font-bold justify-center text-gray-400 cursor-pointer hover:text-white transition ease-out"
                             data-tooltip-id="TempBtnTooltip"
                             onClick={handleUnitSwitch}
                         >
@@ -126,26 +126,36 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
                     </div>
                 </div>
 
-                <button className="p-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-3xl mr-2 hover:border-blue-400 hover:bg-blue-400 transition ease-out bg-opacity-95" data-tooltip-id="GeoBtnTooltip" onClick={handleGeolocation}>
-                    <UilMapMarker size={24} className="text-gray-400 cursor-pointer hover:text-white" />
-                </button>
-                <Tooltip id="GeoBtnTooltip" place="top" effect="solid">
-                    Get current location
-                </Tooltip>
 
-                <div className="relative w-full bg-opacity-95">
+                <div className="flex flex-row border border-gray-300 bg-background rounded-full mx-2 hover:border-primary hover:bg-primary transition ease-out">
+                    <div className="relative">
+                        <button
+                            className="size-10 flex items-center text-xl font-bold justify-center text-gray-400 cursor-pointer hover:text-white transition ease-out"
+                            data-tooltip-id="GeoBtnTooltip" onClick={handleGeolocation}
+                        >
+                            <UilMapMarker />
+                        </button>
+                        <Tooltip id="GeoBtnTooltip" place="top" effect="solid">
+                            Get current location
+                        </Tooltip>
+                    </div>
+                </div>
+
+
+
+                <div className="relative w-full">
                     <UilSearch size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition ease-out hover:scale-125" />
                     <input
                         type="text"
                         placeholder="Search new place"
-                        className="w-full pl-10 p-2 border border-gray-300 bg-gray-50 text-gray-800 focus:outline-none capitalize rounded-3xl"
+                        className="w-full pl-10 p-2 border border-gray-300 bg-background text-textPrimary focus:outline-none capitalize rounded-3xl"
                         value={location}
                         onChange={handleLocationChange}
                     />
                     {showSuggestions && suggestions.length > 0 && (
-                        <ul className="absolute z-50 mt-1 w-full backdrop-blur-md bg-gray-50/80 border border-gray-300 rounded-xl shadow-md divide-y">
+                        <ul className="absolute z-50 mt-1 w-full backdrop-blur-md bg-background/80 border border-gray-300 rounded-xl shadow-md divide-y">
                             {suggestions.map((suggestion, index) => (
-                                <li key={index} className="px-4 py-2 cursor-pointer font-medium hover:bg-blue-400 hover:text-white rounded-xl" onClick={() => handleSelectLocation(suggestion.raw)}>
+                                <li key={index} className="px-4 py-2 cursor-pointer font-medium hover:bg-primary hover:text-white rounded-xl" onClick={() => handleSelectLocation(suggestion.raw)}>
                                     {suggestion.display_name}
                                 </li>
                             ))}

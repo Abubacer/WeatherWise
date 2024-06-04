@@ -25,11 +25,11 @@ const formatCurrentWeather = (data) => {
 
     // console.log('Data from const:', data);
 
-    const { main: details, icon } = weather[0]
+    const { main: details, description, icon } = weather[0]
 
     const customIcon = iconMapping[icon] || '/src/weathericons/50d.svg';
 
-    return { lon, lat, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, timezone, icon: customIcon }
+    return { lon, lat, temp, feels_like, temp_min, temp_max, humidity, name, dt, country, sunrise, sunset, speed, details, description, timezone, icon: customIcon }
 }
 
 const formatForecastWeather = (data) => {

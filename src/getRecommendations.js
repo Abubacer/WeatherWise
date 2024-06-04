@@ -43,11 +43,12 @@ function getRecommendations(weather, forecastData, units) {
     }
     // console.log('Updated Clothing Recommendation:', clothingRecommendation);
     // Activity recommendations based on weather details
-    if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle')) {
+    if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle') || forecastData[0].chanceOfPrecipitation > 0.5) {
         activityRecommendations = [
             'Reading a book indoors',
             'Drinking hot coffee or tea',
             'Baking indoors',
+            'Do a movie marathon',
             'Playing board games indoors'
         ];
     } else if (details.toLowerCase().includes('snow')) {
@@ -55,6 +56,7 @@ function getRecommendations(weather, forecastData, units) {
             'Having a snowball fight',
             'Building a snowman',
             'Skiing or snowboarding',
+            'Bake something delicious',
             'Playing winter sports'
         ];
     } else if (details.toLowerCase().includes('clear') || details.toLowerCase().includes('sunny')) {
@@ -63,6 +65,7 @@ function getRecommendations(weather, forecastData, units) {
             'Having a picnic outdoors',
             'Swimming or sunbathing at the beach',
             'Playing outdoor sports',
+            'Enjoy the weather outdoor!'
 
         ];
     } else if (details.toLowerCase().includes('clouds')) {
@@ -71,6 +74,7 @@ function getRecommendations(weather, forecastData, units) {
             'Visiting a museum or art gallery',
             'Having a picnic outdoors',
             'Playing outdoor sports',
+            'Hiking and explore nature!'
         ];
     }
 

@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 
 function MainContent({ weather: { currentWeather, forecastData }, units }) {
     //console.log('Weather in MainContent:', weather);
-    const { dt, timezone, name, country, details, feels_like, humidity, icon, speed, sunrise, sunset, temp, temp_max, temp_min } = currentWeather;
+    const { dt, timezone, name, country, description, feels_like, humidity, icon, speed, sunrise, sunset, temp, temp_max, temp_min } = currentWeather;
     //console.log("MainContentUnits:", units);
     function formatToLocalDatetime({ secs, offset, format }) {
         const offsetHours = offset / 3600;
@@ -31,25 +31,25 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
     return (
         <div className="flex flex-col bg-transparent">
             <div className="flex flex-col xl:flex-row xl:space-x-4">
-                <div className="w-full xl:w-8/12 backdrop-blur-sm bg-white/65 p-6 rounded-3xl">
+                <div className="w-full xl:w-8/12 backdrop-blur-sm bg-background/65 p-6 rounded-3xl text-textPrimary">
                     <div className="flex flex-row justify-between">
                         <div className="flex flex-col justify-start">
-                            <h2 className="text-gray-600">{`${name}, ${country}`}</h2>
+                            <h2>{`${name}, ${country}`}</h2>
                         </div>
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-gray-600">{formattedDatetime}</p>
+                            <p>{formattedDatetime}</p>
                         </div>
                     </div>
 
                     <div className="flex flex-col items-center justify-center mt-10">
-                        <p className="text-3xl text-gray-600">{`${details}`}</p>
+                        <p className="text-3xl capitalize">{`${description}`}</p>
                         <img src={icon} alt="" className="size-48 drop-shadow-sm" />
-                        <p className="text-4xl text-gray-600">{Math.round(`${temp}`)}°</p>
-                        <p className="text-gray-600">Feels like: {Math.round(`${feels_like}`)}°</p>
-                        <p className="text-gray-600 mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
+                        <p className="text-4xl">{Math.round(`${temp}`)}°</p>
+                        <p>Feels like: {Math.round(`${feels_like}`)}°</p>
+                        <p className="mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
                     </div>
 
-                    <hr className="my-2 border-blue-400 border-dashed" />
+                    <hr className="my-2 border-gray-400 border-dashed" />
                     <div className="p-4 bg-transparent rounded-3xl text-center text-md">
                         <Carousel
                             showArrows={true}
@@ -60,11 +60,11 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             interval={5000}
                         >
                             <div>
-                                <h3 className="font-semibold text-blue-500">What to Wear</h3>
+                                <h3 className="font-semibold text-primary">What to Wear</h3>
                                 <p className="text-gray-600 font-medium mt-1">{clothingRecommendation}</p>
                             </div>
                             <div>
-                                <h3 className="font-semibold text-blue-500">Where to Play</h3>
+                                <h3 className="font-semibold text-primary">Where to Play</h3>
                                 <ul className="text-gray-600 font-medium mt-1">
                                     {activityRecommendations.map((activity, index) => (
                                         <li key={index} className="inline-block mx-3">{activity}</li>
@@ -75,7 +75,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                     </div>
                 </div>
 
-                <div className="flex flex-col w-full text-lg text-white backdrop-blur-sm bg-blue-500/60 p-12 rounded-3xl mt-4 xl:mt-0">
+                <div className="flex flex-col w-full text-lg text-white backdrop-blur-sm bg-primary/55 p-12 rounded-3xl mt-4 xl:mt-0">
                     <div className="space-y-1 divide-y divide-white divide-dashed">
                         <div className="flex justify-between items-center">
                             <div className="flex items-center space-x-2">
