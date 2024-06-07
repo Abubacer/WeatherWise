@@ -5,9 +5,39 @@
 @tailwind utilities;
 
 
+/*---------------------------------------------
+scrollbar
+----------------------------------------------*/
+::-webkit-scrollbar {
+    width: 6px;
+    /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    /* Set the color of the thumb */
+    border-radius: 6px;
+    /* Set the border radius of the thumb */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    /* Set the color of the track */
+}
+
+/* Optional: Style scrollbar buttons */
+::-webkit-scrollbar-button {
+    display: none;
+    /* Hide the scrollbar buttons */
+}
+
+
 @layer base {
     html {
-        @apply bg-gradient-to-br from-blue-300 to-orange-200 bg-cover bg-fixed;
+        @apply bg-custom-image bg-cover bg-center bg-fixed;
         font-family: 'Inter', sans-serif;
+        scrollbar-width: thin;
+        /* Set the width of the scrollbar */
+        scrollbar-color: #8ccdf8 #f4f4f4;
     }
 }

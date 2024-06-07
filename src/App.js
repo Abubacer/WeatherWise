@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { motion } from 'framer-motion';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import WelcomeMessage from './components/WelcomeMessage';
 import fetchFormattedWeatherData from './apis/weatherdata';
 import InfoBox from './components/InfoBox';
+import AboutSection from './components/AboutSection';
 
 function App() {
   const [query, setQuery] = useState({ q: "" });
@@ -14,6 +16,9 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
   const [showInfoBox, setShowInfoBox] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [scrollToAbout, setScrollToAbout] = useState(false);
+  const aboutRef = useRef(null);
 
   useEffect(() => {
     const getWeather = async () => {
@@ -38,7 +43,20 @@ function App() {
     if (query.q || (query.lat && query.lon)) {
       getWeather();
     }
+    AOS.init({
+      duration: 1000, // Animation duration in milliseconds
+      easing: 'ease-in-out', // Easing function
+      once: false, // Whether animation should happen only once
+    });
   }, [query, units]);
+
+  useEffect(() => {
+    if (showAbout && aboutRef.current && scrollToAbout) {
+      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
+      setScrollToAbout(false); // Reset the flag
+    }
+  }, [showAbout, scrollToAbout]);
+
 
   const handleLocationSearch = (location) => {
     setQuery({ q: location });
@@ -59,56 +77,36 @@ function App() {
     setShowInfoBox(!showInfoBox);
   };
 
+  const handleToggleAbout = () => {
+    setShowAbout(!showAbout);
+    setScrollToAbout(true);
+  };
+
   return (
-    <main className="flex flex-col p-4">
-      <motion.div className="relative z-30 flex flex-col justify-between"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -50 }}
-        transition={{ duration: 0.9 }}
-      >
+    <main className="flex flex-col p-4 backdrop-blur-lg">
+      <div className="relative z-30 flex flex-col justify-between">
         <Header onLocationSearch={handleLocationSearch} onUnitChange={handleUnitChange} onGeolocation={handleGeolocation} onToggleInfoBox={handleToggleInfoBox} />
-      </motion.div>
+      </div>
 
       {showInfoBox && (
-        <motion.div
-          className="z-50"
-          initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.9 }}
-        >
+        <div className="z-50">
           <InfoBox />
-        </motion.div>
+        </div>
       )}
 
       {showWelcome ? (
-        <motion.div
-          className="flex flex-col items-center justify-center bg-transparent mt-12"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
-          transition={{ duration: 0.5 }}
-        >
-          <WelcomeMessage />
-        </motion.div>
+        <div className="flex flex-col items-center justify-center mt-12">
+          <WelcomeMessage onToggleAbout={handleToggleAbout} />
+          <AboutSection showAbout={showAbout} ref={aboutRef} />
+        </div>
       ) : (
         weather && (
-          <motion.div
-            className="relative z-20 mt-4"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -50 }}
-            transition={{ duration: 0.9 }}
-          >
+          <div className="relative z-20 mt-4">
             <MainContent weather={weather} units={units} />
-          </motion.div>
+          </div>
         )
       )}
-
-      <div className="relative opacity-95 z-50">
-        <ToastContainer autoClose={3000} position="top-right" />
-      </div>
+      <ToastContainer autoClose={3000} position="top-right" />
     </main>
   );
 }

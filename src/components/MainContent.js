@@ -31,8 +31,8 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
     return (
         <div className="flex flex-col bg-transparent">
             <div className="flex flex-col xl:flex-row xl:space-x-4">
-                <div className="w-full xl:w-8/12 backdrop-blur-sm bg-background/65 p-6 rounded-3xl text-textPrimary">
-                    <div className="flex flex-row justify-between">
+                <div className="w-full xl:w-8/12 backdrop-blur-md bg-background/75 p-6 rounded-3xl text-textPrimary" data-aos="fade-right">
+                    <div className="flex flex-row justify-between" data-aos="fade-down" data-aos-delay="500">
                         <div className="flex flex-col justify-start">
                             <h2>{`${name}, ${country}`}</h2>
                         </div>
@@ -42,15 +42,15 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                     </div>
 
                     <div className="flex flex-col items-center justify-center mt-10">
-                        <p className="text-3xl capitalize">{`${description}`}</p>
-                        <img src={icon} alt="" className="size-48 drop-shadow-sm" />
-                        <p className="text-4xl">{Math.round(`${temp}`)}°</p>
-                        <p>Feels like: {Math.round(`${feels_like}`)}°</p>
-                        <p className="mb-3">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
+                        <p className="text-3xl capitalize" data-aos="fade-down" data-aos-delay="600">{`${description}`}</p>
+                        <img src={icon} alt="" className="size-48" data-aos="zoom-in" data-aos-delay="600" />
+                        <p className="text-4xl" data-aos="fade-down" data-aos-delay="600">{Math.round(`${temp}`)}°</p>
+                        <p data-aos="fade-down" data-aos-delay="600">Feels like: {Math.round(`${feels_like}`)}°</p>
+                        <p className="mb-3" data-aos="fade-down" data-aos-delay="600">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
                     </div>
 
                     <hr className="my-2 border-gray-400 border-dashed" />
-                    <div className="p-4 bg-transparent rounded-3xl text-center text-md">
+                    <div className="p-4 bg-transparent rounded-3xl text-center text-md" data-aos="fade-down" data-aos-delay="700">
                         <Carousel
                             showArrows={true}
                             showStatus={false}
@@ -75,9 +75,9 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                     </div>
                 </div>
 
-                <div className="flex flex-col w-full text-lg text-white backdrop-blur-sm bg-primary/55 p-12 rounded-3xl mt-4 xl:mt-0">
+                <div className="flex flex-col w-full text-lg text-white backdrop-blur-md bg-primary/55 p-12 rounded-3xl mt-4 xl:mt-0" data-aos="fade-left">
                     <div className="space-y-1 divide-y divide-white divide-dashed">
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="500">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/raindrop.svg" alt="humidity icon" className="w-12" />
                                 <p>Humidity</p>
@@ -85,7 +85,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${humidity}%`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="600">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/wind.svg" alt="Wind Speed" className="w-12" />
                                 <p>Wind Speed</p>
@@ -93,7 +93,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${Math.round(speed)} ${windSpeedLabel}`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="700">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/chance-rain.svg" alt="Chance of Rain" className="w-12" />
                                 <p>Chance of Rain</p>
@@ -101,14 +101,14 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${Math.round(forecastData[0].chanceOfPrecipitation * 100)}%`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="800">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/sunrise.svg" alt="Sunrise" className="w-12" />
                                 <p>Sunrise</p>
                             </div>
                             <p>{formattedSunrise}</p>
                         </div>
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="900">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/sunset.svg" alt="Sunset" className="w-12" />
                                 <p>Sunset</p>
@@ -116,7 +116,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{formattedSunset}</p>
                         </div>
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="1000">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/uv-index.svg" alt="UV Index" className="w-12" />
                                 <p>UV Index</p>
@@ -125,16 +125,16 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-start mt-8">
+                    <div className="flex items-center justify-start mt-8" data-aos="fade-down" data-aos-delay="1100">
                         <p className="text-xl font-medium leading-6 text-white">
                             Hourly Forcast
                         </p>
                     </div>
                     <hr className="my-2" />
 
-                    <div className="flex flex-row items-center justify-between mt-4">
+                    <div className="flex flex-row items-center justify-between mt-4" data-aos="fade-down" data-aos-delay="1200">
                         {forecastData.map((forecast, index) => (
-                            <div key={index} className="flex flex-col items-center justify-center">
+                            <div key={index} className="flex flex-col items-center justify-center" data-aos-delay="1300">
                                 <p className="text-sm">{formatToLocalDatetime({ secs: forecast.dt, offset: timezone, format: 'hh:mm a' })}</p>
                                 <img src={forecast.icon} alt="" className="w-12 my-1" />
                                 <p className="text-md">{`${Math.round(forecast.temp)}°`}</p>

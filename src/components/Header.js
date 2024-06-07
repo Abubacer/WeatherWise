@@ -96,11 +96,11 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
 
 
     return (
-        <div className="p-3 flex-col rounded-3xl backdrop-blur-sm bg-background/65">
-            <div className="flex flex-row items-center w-full xl:w-1/2 relative">
-                <img src={logo} alt="logo" className="w-10 mr-2 opacity-85" />
+        <div className="p-3 flex-col rounded-3xl backdrop-blur-md bg-background/75" data-aos="fade-down">
+            <div className="flex flex-row items-center w-full xl:w-1/2 relative" data-aos="fade" data-aos-delay="500">
+                <img src={logo} alt="logo" className="w-10 mr-2" />
                 <h1
-                    className="text-lg hidden lg:block text-gray-400 shadow-sm cursor-pointer hover:text-primary font-medium transition ease-out shadow-sm"
+                    className="text-lg hidden lg:block text-gray-400 shadow-sm cursor-pointer hover:text-primary font-medium transition ease-out shadow-sm mr-6"
                     onClick={handleWeatherWiseClick}
                     data-tooltip-id="LogoBtnTooltip"
                 >
@@ -110,10 +110,10 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
                     About WeatherWise
                 </Tooltip>
 
-                <div className="flex flex-row border border-gray-300 bg-background rounded-full ml-4 hover:border-primary hover:bg-primary transition ease-out">
+                <div className="flex flex-row border border-gray-300 bg-background rounded-full hover:border-primary hover:bg-primary transition ease-out" data-aos="fade" data-aos-delay="500">
                     <div className="relative">
                         <button
-                            className="size-10 flex items-center text-xl font-bold justify-center text-gray-400 cursor-pointer hover:text-white transition ease-out"
+                            className="size-10 flex items-center text-xl font-medium justify-center text-gray-400 cursor-pointer hover:text-white transition ease-out"
                             data-tooltip-id="TempBtnTooltip"
                             onClick={handleUnitSwitch}
                         >
@@ -127,7 +127,7 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
                 </div>
 
 
-                <div className="flex flex-row border border-gray-300 bg-background rounded-full mx-2 hover:border-primary hover:bg-primary transition ease-out">
+                <div className="flex flex-row border border-gray-300 bg-background rounded-full mx-2 hover:border-primary hover:bg-primary transition ease-out" data-aos="fade" data-aos-delay="500">
                     <div className="relative">
                         <button
                             className="size-10 flex items-center text-xl font-bold justify-center text-gray-400 cursor-pointer hover:text-white transition ease-out"
@@ -143,7 +143,7 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
 
 
 
-                <div className="relative w-full">
+                <div className="relative w-full" data-aos="fade" data-aos-delay="500">
                     <UilSearch size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 transition ease-out hover:scale-125" />
                     <input
                         type="text"
