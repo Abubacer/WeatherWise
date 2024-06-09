@@ -23,10 +23,10 @@ const WelcomeMessage = ({ onToggleAbout }) => {
                     </g>
                 </svg>
                 <h1 className="text-3xl md:text-5xl" data-aos="fade-down" data-aos-delay="500">Welcome to WeatherWise</h1>
-                <hr className="border-2 w-40 my-4" />
+                <hr className="border-white border-1 w-40 my-4" />
                 <p className="text-lg md:text-3xl max-w-4xl" data-aos="fade-up" data-aos-delay="500">To start, enter your location in the search bar or simply click the geolocation button</p>
 
-                <div className="p-2 flex flex-row text-gray-400 font-medium border border-gray-50 bg-background rounded-full mt-6 hover:border-primary cursor-pointer hover:bg-primary hover:text-white transition ease-out" data-aos="fade-up" data-aos-delay="500">
+                <div className="p-2 flex flex-row text-primary font-medium border border-gray-50 bg-background rounded-full mt-6 hover:border-primary cursor-pointer hover:bg-primary hover:text-white transition ease-out drop-shadow-sm" data-aos="fade-up" data-aos-delay="500">
                     <div className="relative">
                         <button
                             className="px-3"

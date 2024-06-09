@@ -48,6 +48,7 @@ const formatForecastWeather = (data) => {
 };
 
 /*const formatAirPollution = (data) => {
+    console.log('airPollutionData from API:', data);
     const { list } = data;
     const formattedAirPollution = list.map((item) => {
         const { main: { aqi }, components: { co, no, no2, o3, so2, pm2_5, pm10, nh3 }, dt } = item;
@@ -62,7 +63,7 @@ const fetchFormattedWeatherData = async (searchParams) => {
     try {
         const currentWeather = await fetchWeatherData('weather', searchParams).then(formatCurrentWeather);
         const forecastData = await fetchWeatherData('forecast', searchParams).then(formatForecastWeather);
-        // const airPollutionData = await fetchWeatherData('air_pollution', searchParams).then(formatAirPollution);
+        //const airPollutionData = await fetchWeatherData('air_pollution', searchParams).then(formatAirPollution);
 
         return { currentWeather, forecastData };
     } catch (error) {

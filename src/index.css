@@ -34,7 +34,7 @@ scrollbar
 
 @layer base {
     html {
-        @apply bg-custom-image bg-cover bg-center bg-fixed;
+        @apply bg-custom-image bg-cover bg-center bg-fixed scroll-smooth;
         font-family: 'Inter', sans-serif;
         scrollbar-width: thin;
         /* Set the width of the scrollbar */

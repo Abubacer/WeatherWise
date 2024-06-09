@@ -29,6 +29,8 @@ function App() {
         } else if (query.lat && query.lon) {
           data = await fetchFormattedWeatherData({ lat: query.lat, lon: query.lon, units });
         }
+
+        //console.log('Weather data:', data);
         if (data) {
           setWeather(data);
           toast("🎉 Hi! We've just snagged the latest weather forecast for you!");
@@ -85,7 +87,13 @@ function App() {
   return (
     <main className="flex flex-col p-4 backdrop-blur-lg">
       <div className="relative z-30 flex flex-col justify-between">
-        <Header onLocationSearch={handleLocationSearch} onUnitChange={handleUnitChange} onGeolocation={handleGeolocation} onToggleInfoBox={handleToggleInfoBox} />
+        <Header
+          onLocationSearch={handleLocationSearch}
+          onUnitChange={handleUnitChange}
+          onGeolocation={handleGeolocation}
+          onToggleInfoBox={handleToggleInfoBox}
+          setShowWelcome={setShowWelcome}
+        />
       </div>
 
       {showInfoBox && (
@@ -106,7 +114,7 @@ function App() {
           </div>
         )
       )}
-      <ToastContainer autoClose={3000} position="top-right" />
+      <ToastContainer autoClose={3000} position="bottom-right" style={{ width: "300px" }} />
     </main>
   );
 }

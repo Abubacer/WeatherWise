@@ -7,43 +7,45 @@ function getRecommendations(weather, forecastData, units) {
     if (units === 'imperial') {
         // Recommendations for Fahrenheit
         if (temp <= 32) {
-            clothingRecommendation = 'It\'s freezing outside! Wear a heavy coat, gloves, and a hat.';
+            clothingRecommendation = 'Bundle up! It\'s freezing outside.';
         } else if (temp > 32 && temp <= 50) {
-            clothingRecommendation = 'It\'s quite cold. Wear a warm jacket and consider a hat and gloves.';
+            clothingRecommendation = 'Feeling a bit chilly? A warm jacket and maybe a hat and gloves would be perfect.';
         } else if (temp > 50 && temp <= 68) {
-            clothingRecommendation = 'The weather is cool.';
+            clothingRecommendation = 'Cool weather is here! Enjoy it with a light jacket or sweater.';
         } else if (temp > 68 && temp <= 86) {
-            clothingRecommendation = 'The weather is warm. Dress in light clothing.';
+            clothingRecommendation = 'Warm weather is here! Time to break out those light, breezy clothes.';
         } else if (temp > 86) {
-            clothingRecommendation = 'It\'s hot outside! Wear shorts and a t-shirt, and stay hydrated.';
+            clothingRecommendation = 'Whew, it\'s hot! Stay cool with shorts, a t-shirt, and plenty of water.';
         }
     } else if (units === 'metric') {
         // Recommendations for Celsius
         if (temp <= 0) {
-            clothingRecommendation = 'It\'s freezing outside! Wear a heavy coat, gloves, and a hat.';
+            clothingRecommendation = 'Bundle up! It\'s freezing outside.';
         } else if (temp > 0 && temp <= 10) {
-            clothingRecommendation = 'It\'s quite cold. Wear a warm jacket and consider a hat and gloves.';
+            clothingRecommendation = 'Feeling a bit chilly? A warm jacket and maybe a hat and gloves would be perfect.';
         } else if (temp > 10 && temp <= 20) {
-            clothingRecommendation = 'The weather is cool.';
+            clothingRecommendation = 'Cool weather is here! Enjoy it with a light jacket or sweater.';
         } else if (temp > 20 && temp <= 30) {
-            clothingRecommendation = 'The weather is warm. Dress in light clothing.';
+            clothingRecommendation = 'Warm weather is here! ️Time to break out those light, breezy clothes.';
         } else if (temp > 30) {
-            clothingRecommendation = 'It\'s hot outside! Wear shorts and a t-shirt, and stay hydrated.';
+            clothingRecommendation = 'Whew, it\'s hot! Stay cool with shorts, a t-shirt, and plenty of water.';
         }
     }
     // Clothing recommendations based on weather details and chance of rain
     if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle') || forecastData[0].chanceOfPrecipitation > 0.5) {
-        clothingRecommendation += ' And there is a high chance of rain, so consider wearing a waterproof jacket and carrying an umbrella or raincoat.';
+        clothingRecommendation += ' Don\'t forget an umbrella or raincoat, there\'s a high chance of rain';
     } else if (details.toLowerCase().includes('snow')) {
-        clothingRecommendation += ' And snow is expected. Wear warm layers, a heavy coat, and insulated boots.';
+        clothingRecommendation += ' Winter wonderland! Dress warmly with layers, a heavy coat, and insulated boots';
     } else if (details.toLowerCase().includes('clear') || details.toLowerCase().includes('sunny')) {
-        clothingRecommendation += ' And it\'s a clear or sunny day. Wear light and breathable clothing, sunglasses, and sunscreen.';
+        clothingRecommendation += ' Sunglasses and sunscreen recommended, it\'s a clear or sunny day!';
     } else if (details.toLowerCase().includes('clouds')) {
-        clothingRecommendation += ' And it\'s cloudy. Bring a light jacket or sweater in case it gets cooler.';
+        clothingRecommendation += ' Don\'t let the clouds fool you, it might get chilly later. Pack a light jacket or sweater.';
+    } else if (details.toLowerCase().includes('haze')) {
+        clothingRecommendation += ' But it\'s hazy today, consider wearing a mask and If the haze is severe, try to limit outdoor activities.';
     }
     // console.log('Updated Clothing Recommendation:', clothingRecommendation);
     // Activity recommendations based on weather details
-    if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle') || forecastData[0].chanceOfPrecipitation > 0.5) {
+    if (details.toLowerCase().includes('rain') || details.toLowerCase().includes('drizzle') || details.toLowerCase().includes('haze') || forecastData[0].chanceOfPrecipitation > 0.5) {
         activityRecommendations = [
             'Reading a book indoors',
             'Drinking hot coffee or tea',

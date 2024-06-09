@@ -10,6 +10,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
     //console.log('Weather in MainContent:', weather);
     const { dt, timezone, name, country, description, feels_like, humidity, icon, speed, sunrise, sunset, temp, temp_max, temp_min } = currentWeather;
     //console.log("MainContentUnits:", units);
+
     function formatToLocalDatetime({ secs, offset, format }) {
         const offsetHours = offset / 3600;
         return DateTime.fromSeconds(secs).setZone(`UTC${offsetHours >= 0 ? '+' : ''}${offsetHours}`).toFormat(format);
@@ -31,12 +32,12 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
     return (
         <div className="flex flex-col bg-transparent">
             <div className="flex flex-col xl:flex-row xl:space-x-4">
-                <div className="w-full xl:w-8/12 backdrop-blur-md bg-background/75 p-6 rounded-3xl text-textPrimary" data-aos="fade-right">
-                    <div className="flex flex-row justify-between" data-aos="fade-down" data-aos-delay="500">
-                        <div className="flex flex-col justify-start">
+                <div className="w-full xl:w-8/12 backdrop-blur-sm bg-background/70 p-6 rounded-2xl text-textPrimary drop-shadow-sm" data-aos="fade-down">
+                    <div className="flex flex-col sm:flex-row justify-center sm:justify-between" data-aos="fade-down" data-aos-delay="500">
+                        <div className="flex flex-col items-center ">
                             <h2>{`${name}, ${country}`}</h2>
                         </div>
-                        <div className="flex flex-col items-center justify-center">
+                        <div className="flex flex-col items-center">
                             <p>{formattedDatetime}</p>
                         </div>
                     </div>
@@ -44,7 +45,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                     <div className="flex flex-col items-center justify-center mt-10">
                         <p className="text-3xl capitalize" data-aos="fade-down" data-aos-delay="600">{`${description}`}</p>
                         <img src={icon} alt="" className="size-48" data-aos="zoom-in" data-aos-delay="600" />
-                        <p className="text-4xl" data-aos="fade-down" data-aos-delay="600">{Math.round(`${temp}`)}°</p>
+                        <p className="text-4xl" data-aos="fade-down" data-aos-delay="600">{Math.round(`${temp}`)}<span className="text-xl align-top" >{units === 'metric' ? '°C' : '°F'}</span></p>
                         <p data-aos="fade-down" data-aos-delay="600">Feels like: {Math.round(`${feels_like}`)}°</p>
                         <p className="mb-3" data-aos="fade-down" data-aos-delay="600">{`High: ${Math.round(temp_max)}° | Low: ${Math.round(temp_min)}°`}</p>
                     </div>
@@ -75,9 +76,9 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                     </div>
                 </div>
 
-                <div className="flex flex-col w-full text-lg text-white backdrop-blur-md bg-primary/55 p-12 rounded-3xl mt-4 xl:mt-0" data-aos="fade-left">
+                <div className="flex flex-col w-full text-lg text-white backdrop-blur-sm bg-primary/50 p-12 rounded-2xl mt-4 xl:mt-0 drop-shadow-sm" data-aos="fade-down">
                     <div className="space-y-1 divide-y divide-white divide-dashed">
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="500">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="200">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/raindrop.svg" alt="humidity icon" className="w-12" />
                                 <p>Humidity</p>
@@ -85,7 +86,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${humidity}%`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="600">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="300">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/wind.svg" alt="Wind Speed" className="w-12" />
                                 <p>Wind Speed</p>
@@ -93,7 +94,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${Math.round(speed)} ${windSpeedLabel}`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="700">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="400">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/chance-rain.svg" alt="Chance of Rain" className="w-12" />
                                 <p>Chance of Rain</p>
@@ -101,14 +102,14 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{`${Math.round(forecastData[0].chanceOfPrecipitation * 100)}%`}</p>
                         </div>
 
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="800">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="500">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/sunrise.svg" alt="Sunrise" className="w-12" />
                                 <p>Sunrise</p>
                             </div>
                             <p>{formattedSunrise}</p>
                         </div>
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="900">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="600">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/sunset.svg" alt="Sunset" className="w-12" />
                                 <p>Sunset</p>
@@ -116,7 +117,7 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                             <p>{formattedSunset}</p>
                         </div>
 
-                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="1000">
+                        <div className="flex justify-between items-center" data-aos="fade-down" data-aos-delay="700">
                             <div className="flex items-center space-x-2">
                                 <img src="./weathericons/uv-index.svg" alt="UV Index" className="w-12" />
                                 <p>UV Index</p>
@@ -125,16 +126,16 @@ function MainContent({ weather: { currentWeather, forecastData }, units }) {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-start mt-8" data-aos="fade-down" data-aos-delay="1100">
+                    <div className="flex items-center justify-start mt-8" data-aos="fade-down" data-aos-delay="800">
                         <p className="text-xl font-medium leading-6 text-white">
                             Hourly Forcast
                         </p>
                     </div>
-                    <hr className="my-2" />
+                    <hr className="my-2" data-aos="fade-down" data-aos-delay="800" />
 
-                    <div className="flex flex-row items-center justify-between mt-4" data-aos="fade-down" data-aos-delay="1200">
+                    <div className="flex flex-col sm:flex-row justify-between mt-4 divide-y divide-white divide-dashed sm:divide-none" data-aos="fade-down" data-aos-delay="900">
                         {forecastData.map((forecast, index) => (
-                            <div key={index} className="flex flex-col items-center justify-center" data-aos-delay="1300">
+                            <div key={index} className="flex flex-row sm:flex-col items-center justify-between sm:justify-center">
                                 <p className="text-sm">{formatToLocalDatetime({ secs: forecast.dt, offset: timezone, format: 'hh:mm a' })}</p>
                                 <img src={forecast.icon} alt="" className="w-12 my-1" />
                                 <p className="text-md">{`${Math.round(forecast.temp)}°`}</p>

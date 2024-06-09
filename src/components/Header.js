@@ -6,7 +6,7 @@ import { lqApiKey, LqBaseUrl } from '../apis/LocationiqApi';
 import { UilMapMarker, UilSearch } from '@iconscout/react-unicons'
 import logo from '../img/icon.png'
 
-const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox }) => {
+const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox, setShowWelcome }) => {
     const [location, setLocation] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(true);
@@ -94,13 +94,21 @@ const Header = ({ onLocationSearch, onUnitChange, onGeolocation, onToggleInfoBox
         onToggleInfoBox();
     };
 
+    const handleLogoClick = () => {
+        setShowWelcome(true);
+    };
 
     return (
-        <div className="p-3 flex-col rounded-3xl backdrop-blur-md bg-background/75" data-aos="fade-down">
+        <div className="p-3 flex-col rounded-2xl backdrop-blur-sm bg-background/70 drop-shadow-sm" data-aos="fade-down">
             <div className="flex flex-row items-center w-full xl:w-1/2 relative" data-aos="fade" data-aos-delay="500">
-                <img src={logo} alt="logo" className="w-10 mr-2" />
+                <button className="mr-2 hover:scale-110 transition ease-out" onClick={handleLogoClick}>
+                    <img src={logo} alt="logo" className="w-16" data-tooltip-id="LogoTooltip" />
+                </button>
+                <Tooltip className='z-50' id="LogoTooltip" place="bottom" effect="solid">
+                    Go to Home
+                </Tooltip>
                 <h1
-                    className="text-lg hidden lg:block text-gray-400 shadow-sm cursor-pointer hover:text-primary font-medium transition ease-out shadow-sm mr-6"
+                    className="text-lg tracking-wide hidden lg:block text-primary drop-shadow-sm cursor-pointer hover:text-gray-400 font-medium transition ease-out mr-6"
                     onClick={handleWeatherWiseClick}
                     data-tooltip-id="LogoBtnTooltip"
                 >

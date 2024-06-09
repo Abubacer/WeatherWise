@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'custom-image': "url('./img/bg-1.png')",
+        'custom-image': "url('./img/bg-sky.jpg')",
       },
       colors: {
         primary: '#1c80f2',
